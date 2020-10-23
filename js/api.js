@@ -192,10 +192,10 @@ function insertTeam(team) {
     store.put(team);
     return tx.complete;
   }).then(() => {
-    M.toast({ html: `${team.name} berhasil disimpan!` });
-    console.log('Pertandingan berhasil disimpan');
+    M.toast({ html: `team ${team.name} berhasil disimpan!` });
+    console.log('Team berhasil disimpan');
   }).catch(err => {
-    console.error('Pertandingan gagal disimpan', err);
+    console.error('Team gagal disimpan', err);
   });
 }
 
