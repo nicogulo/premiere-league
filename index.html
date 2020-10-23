@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Premier League Information</title>
+  <meta name="description" content="My first PWA" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/materialize.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#1a237e" />
+  <link rel="icon" href="icon.png" sizes="256x256" type="image/png">
+  <link rel="apple-touch-icon" href="icon.png">
+</head>
+
+<body>
+  <!-- Navigasi -->
+  <nav class="#1a237e indigo darken-4" role="navigation">
+    <div class="nav-wrapper container">
+      <a href="index.html" class="brand-logo truncate" id="logo-container">Premier League</a>
+      <a href="#" class="sidenav-trigger" data-target="nav-mobile">☰</a>
+
+      <ul class="topnav right hide-on-med-and-down"></ul>
+      <ul class="sidenav" id="nav-mobile"></ul>
+    </div>
+  </nav>
+  <!-- Akhir Navigasi -->
+
+  <div class="container" id="body-content"></div>
+  
+  <script src="js/materialize.min.js"></script>
+  <script src="js/idb.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/req.js"></script>
+</body>
+
+</html>
