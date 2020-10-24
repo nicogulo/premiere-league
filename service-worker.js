@@ -4,7 +4,11 @@ var urlsToCache = [
   "/nav.html",
   "/index.html",
   "/manifest.json",
-  "/icon.png",
+  "/icon-144x144.png",
+  "/icon-192x192.png",
+  "/icon-256x256.png",
+  "/icon-384x384.png",
+  "/icon-512x512.png",
   "/bg.jpg",
   "/pages/score.html",
   "/pages/team.html",
@@ -49,7 +53,6 @@ self.addEventListener("install", function (event) {
 });
 
 self.addEventListener('fetch', function (event) {
-  const base_url = "https://api.football-data.org/v2/";
   event.respondWith(
     caches.open(CACHE_NAME).then(function (cache) {
       return cache.match(event.request).then(function (response) {

@@ -7,10 +7,10 @@ var dataTeam;
 
 const fetchAPI = url => {
   return fetch(url, {
-    headers: {
-      'X-Auth-Token': API_KEY
-    }
-  })
+      headers: {
+        'X-Auth-Token': API_KEY
+      }
+    })
     .then(res => {
       if (res.status !== 200) {
         console.log("Error: " + res.status);
@@ -178,7 +178,9 @@ var elTeamFavorit = () => {
 var dbPromised = idb.open('football', 1, upgradeDb => {
   switch (upgradeDb.oldVersion) {
     case 0:
-      upgradeDb.createObjectStore('team', { keyPath: 'id' })
+      upgradeDb.createObjectStore('team', {
+        keyPath: 'id'
+      })
   }
 });
 
@@ -192,7 +194,9 @@ function insertTeam(team) {
     store.put(team);
     return tx.complete;
   }).then(() => {
-    M.toast({ html: `team ${team.name} berhasil disimpan!` });
+    M.toast({
+      html: `team ${team.name} berhasil disimpan!`
+    });
     console.log('Team berhasil disimpan');
   }).catch(err => {
     console.error('Team gagal disimpan', err);
@@ -206,7 +210,9 @@ var deleteTeam = (idTeam) => {
     store.delete(idTeam);
     return tx.complete;
   }).then(() => {
-    M.toast({ html: 'Team Sudah Di Hapus!' });
+    M.toast({
+      html: 'Team Sudah Di Hapus!'
+    });
     elTeamFavorit();
   }).catch(err => {
     console.error('Error: ', err);
