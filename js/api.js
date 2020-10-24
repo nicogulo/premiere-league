@@ -3,7 +3,6 @@ const BASE_URL = "https://api.football-data.org/v2/";
 const LEAGUE_ID = 2021;
 const score = `${BASE_URL}competitions/${LEAGUE_ID}/standings`;
 const team = `${BASE_URL}competitions/${LEAGUE_ID}/teams`;
-var dataTeam;
 
 const fetchAPI = url => {
   return fetch(url, {
@@ -14,10 +13,8 @@ const fetchAPI = url => {
     .then(res => {
       if (res.status !== 200) {
         console.log("Error: " + res.status);
-        return Promise.reject(new Error(res.statusText))
-      } else {
-        return Promise.resolve(res)
       }
+      return res
     })
     .then(res => res.json())
     .catch(err => {
@@ -38,7 +35,7 @@ function getScore() {
 function showScore(data) {
   showLoader();
   let standings = "";
-  let standingElement = document.getElementById("main-content");
+  const standingElement = document.getElementById("main-content");
   hideLoader();
 
   data.standings[0].table.forEach(function (standing) {
@@ -75,7 +72,7 @@ function showScore(data) {
                             <th>GA</th>
                             <th>GD</th>
                         </tr>
-                     </thead>
+                    </thead>
                     <tbody id="standings">
                         ${standings}
                     </tbody>
@@ -97,8 +94,7 @@ function getTeam() {
 
 function showTeam(data) {
   showLoader();
-  dataTeam = data;
-  var teams = "";
+  let teams = "";
   data.teams.forEach(function (team) {
     teams += `
         <div class="col s12 m6 l6">
@@ -109,24 +105,29 @@ function showTeam(data) {
             <div class="center">${team.area.name}</div>
           </div>
           <div class="card-action center-align">
-              <a class="waves-effect waves-light btn-small #1a237e indigo darken-4" onclick="insertTeamListener(${team.id})">Add to Your Favorite</a>
+              <a id="${team.id}" class="waves-effect waves-light btn-small #1a237e indigo darken-4">Add to Your Favorite</a>
           </div>
         </div>
       </div>
         `;
   });
   document.getElementById("main-content").innerHTML = teams;
+  data.teams.forEach((team) => {
+    document.getElementById(team.id).addEventListener('click', () => {
+      insertTeamListener(team);
+    })
+  })
   hideLoader();
 }
 
 
-var elTeamFavorit = () => {
-  var teams = getTeamfav()
+const elTeamFavorit = () => {
+  const teams = getTeamfav()
   showLoader();
 
   teams.then(data => {
     dataTeam = data;
-    var html = ' '
+    let html = ' '
     html += '<div class="row">'
     data.forEach(team => {
       html += `
@@ -148,28 +149,28 @@ var elTeamFavorit = () => {
     if (data.length == 0) html += '<h6 class="Kamu tidak memiliki team favorit!</6>'
 
     html += "</div>"
-    let doc = document.getElementById('main-content');
+    const doc = document.getElementById('main-content');
     doc.innerHTML = html;
     hideLoader();
   })
 }
 
 // database operations
-var dbPromised = idb.open('football', 1, upgradeDb => {
-  switch (upgradeDb.oldVersion) {
-    case 0:
-      upgradeDb.createObjectStore('team', {
-        keyPath: 'id'
-      })
-  }
+const dbPromised = idb.open("football", 1, function(upgradeDb) {
+  const teamsObjectStore = upgradeDb.createObjectStore("team", {
+      keyPath: 'id'
+  });
+  teamsObjectStore.createIndex("id", "id", {
+      unique: false
+  });
 });
 
 
 
-function insertTeam(team) {
+function insertTeamListener(team) {
   dbPromised.then(db => {
-    var tx = db.transaction('team', 'readwrite');
-    var store = tx.objectStore('team');
+    const tx = db.transaction('team', 'readwrite');
+    const store = tx.objectStore('team');
     team.createdAt = new Date().getTime();
     store.put(team);
     return tx.complete;
@@ -183,10 +184,10 @@ function insertTeam(team) {
   });
 }
 
-var deleteTeam = (idTeam) => {
+const deleteTeam = (idTeam) => {
   dbPromised.then(db => {
-    var tx = db.transaction('team', 'readwrite');
-    var store = tx.objectStore('team');
+    const tx = db.transaction('team', 'readwrite');
+    const store = tx.objectStore('team');
     store.delete(idTeam);
     return tx.complete;
   }).then(() => {
@@ -199,30 +200,23 @@ var deleteTeam = (idTeam) => {
   });
 }
 
-var getTeamfav = () => {
+const getTeamfav = () => {
   return dbPromised.then(db => {
-    var tx = db.transaction('team', 'readonly');
-    var store = tx.objectStore('team');
+    const tx = db.transaction('team', 'readonly');
+    const store = tx.objectStore('team');
     return store.getAll();
   })
 }
 
-
-
-var insertTeamListener = idTeam => {
-  var team = dataTeam.teams.filter(el => el.id == idTeam)[0]
-  insertTeam(team);
-}
-
-var deleteTeamListener = idTeam => {
-  var c = confirm("Yakin Mau Hapus?")
+const deleteTeamListener = idTeam => {
+  const c = confirm("Yakin Mau Hapus?")
   if (c == true) {
     deleteTeam(idTeam);
   }
 }
 
-var showLoader = () => {
-  var html = `<div class="preloader-wrapper medium active">
+const showLoader = () => {
+  const html = `<div class="preloader-wrapper medium active">
               <div class="spinner-layer spinner-green-only">
                 <div class="circle-clipper left">
                   <div class="circle"></div>
@@ -237,7 +231,7 @@ var showLoader = () => {
   doc.innerHTML = html;
 }
 
-var hideLoader = () => {
+const hideLoader = () => {
   let doc = document.getElementById('loader');
   doc.innerHTML = '';
 }

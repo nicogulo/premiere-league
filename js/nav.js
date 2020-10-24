@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Activate sidebar nav
-  var elems = document.querySelectorAll(".sidenav");
+  const elems = document.querySelectorAll(".sidenav");
   M.Sidenav.init(elems);
   loadNav();
 
   function loadNav() {
-    var xhttp = new XMLHttpRequest();
+    const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4) {
         if (this.status != 200) return;
@@ -21,11 +21,11 @@ document.addEventListener("DOMContentLoaded", function () {
           .forEach(function (elm) {
             elm.addEventListener("click", function (event) {
               // Tutup sidenav
-              var sidenav = document.querySelector(".sidenav");
+              const sidenav = document.querySelector(".sidenav");
               M.Sidenav.getInstance(sidenav).close();
 
               // Muat konten halaman yang dipanggil
-              page = event.target.getAttribute("href").substr(1);
+              const page = event.target.getAttribute("href").substr(1);
               loadPage(page);
             });
           });
@@ -36,15 +36,15 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Load page content
-  var page = window.location.hash.substr(1);
+  let page = window.location.hash.substr(1);
   if (page == "") page = "score";
   loadPage(page);
 
   function loadPage(page) {
-    var xhttp = new XMLHttpRequest();
+    const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4) {
-        var content = document.querySelector("#body-content");
+        const content = document.querySelector("#body-content");
         if (this.status == 200) {
           content.innerHTML = xhttp.responseText;
           if (page == 'score') getScore();
