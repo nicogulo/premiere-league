@@ -26,16 +26,6 @@ const fetchAPI = url => {
 };
 
 function getScore() {
-  if ("caches" in window) {
-    caches.match(score).then(function (response) {
-      if (response) {
-        response.json().then(function (data) {
-          showScore(data);
-        })
-      }
-    })
-  }
-
   fetchAPI(score)
     .then(data => {
       showScore(data);
@@ -96,16 +86,6 @@ function showScore(data) {
 }
 
 function getTeam() {
-  if ("caches" in window) {
-    caches.match(team).then(function (response) {
-      if (response) {
-        response.json().then(function (data) {
-          showTeam(data);
-        })
-      }
-    })
-  }
-
   fetchAPI(team)
     .then(data => {
       showTeam(data);
