@@ -1,8 +1,8 @@
 var webPush = require('web-push');
 
 const vapidKeys = {
-   "publicKey": "BIR8XXxm8AE3fkr263HRtq-M-RmhvG7V55nbLdOHXSy9JLTFZaYM5zxSoXLLedXBFwHrea5B2O2AzhWkhn9oCU4",
-   "privateKey": "XZ0E3gau2Q-Zh4FcmWMVARqVBRo_Tir8wFJh1tli3fo"
+   "publicKey": "BJ32GNXOBsid8KCqPIO9nfPItlkGLO1q3-hxqhhHycUft4Ec-OBs4ZricVCAMgmnMLS-KzR9x5jDOD1s_IJGJpg",
+   "privateKey": "fNLOrEQuTwUvBffnEXFfO_Wx9e7DL_ukI1CVt_KzCHI"
 };
 
 
@@ -12,10 +12,10 @@ webPush.setVapidDetails(
    vapidKeys.privateKey
 )
 var pushSubscription = {
-   "endpoint": "https://fcm.googleapis.com/fcm/send/c9wZXqRk7R0:APA91bFKo3bPcoOz9_Milr6PGH_HpE3Vt1Do_d4NSS6rQ7QoGXXXIwI-e9Oihp_jCxYtE7tyk90rA4jLLDr3zsmel3AHJPbicxIpuLMcadkrxw1Yrko2thJ7j9Uz428NERa6K4DYgH7K",
+   "endpoint": "https://fcm.googleapis.com/fcm/send/fK6fKbpJumo:APA91bHnTe7VEOg4Gs5l3Bk5Cm3Rk6YFNECPUhmUxAD1CMYr3DrPF53I3NmflTvRFe3LTmXlLTTtMpr7JgjgMJvxZPW6WIvr-WQxL2-xcBX84JxFme92k2jwOgzur1tTaGQv6DwfJhBT",
    "keys": {
-      "p256dh": "BC4jrQ89CsTVsLybhYcwcPZ2jaN296CDqr2ApaTVrNK1soMnXRjquNKOGIeKVv1B6YQ0he93DykUOBdIL12wUcI=",
-      "auth": "vJDC7JZpprWKdP+X5/4YRw=="
+      "p256dh": "BJU+CPjdlZl+wf2OY1HU/6LkRzpjYlkoXfdWtO+oTohzAQutnK72FqEmhMTWqPnGvsXFJsiH78e08qO6LCjpnpk=",
+      "auth": "uVv0LI7REwb13RbwTWQVyg=="
    }
 };
 var payload = 'Selamat datang di aplikasi sepak bola LaLiga!';

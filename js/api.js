@@ -128,7 +128,7 @@ function showTeam(data) {
             <div class="center flow-text">${team.name}</div>
             <div class="center">${team.area.name}</div>
           </div>
-          <div class="card-action right-align">
+          <div class="card-action center-align">
               <a class="waves-effect waves-light btn-small #1a237e indigo darken-4" onclick="insertTeamListener(${team.id})">Add to Your Favorite</a>
           </div>
         </div>
@@ -157,7 +157,7 @@ var elTeamFavorit = () => {
             <div class="center flow-text">${team.name}</div>
             <div class="center">${team.area.name}</div>
           </div>
-          <div class="card-action right-align">
+          <div class="card-action center-align">
               <a class="waves-effect waves-light btn-small red" onclick="deleteTeamListener(${team.id})">Delete</a>
           </div>
         </div>
@@ -200,7 +200,7 @@ function insertTeam(team) {
 }
 
 var deleteTeam = (idTeam) => {
-  dbx.then(db => {
+  dbPromised.then(db => {
     var tx = db.transaction('team', 'readwrite');
     var store = tx.objectStore('team');
     store.delete(idTeam);
@@ -214,7 +214,7 @@ var deleteTeam = (idTeam) => {
 }
 
 var getTeamfav = () => {
-  return dbx.then(db => {
+  return dbPromised.then(db => {
     var tx = db.transaction('team', 'readonly');
     var store = tx.objectStore('team');
     return store.getAll();
@@ -224,7 +224,7 @@ var getTeamfav = () => {
 
 
 var insertTeamListener = idTeam => {
-  var teamm = dataTeam.teams.filter(el => el.id == idTeam)[0]
+  var team = dataTeam.teams.filter(el => el.id == idTeam)[0]
   insertTeam(team);
 }
 
