@@ -13,8 +13,9 @@ const fetchAPI = url => {
     .then(res => {
       if (res.status !== 200) {
         console.log("Error: " + res.status);
+        Promise.resolve(res.statusText);
       }
-      return res
+      return Promise.resolve(res);
     })
     .then(res => res.json())
     .catch(err => {
