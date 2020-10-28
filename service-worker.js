@@ -1,63 +1,42 @@
-const CACHE_NAME = "sepak-bola";
-var urlsToCache = [
-  "/",
-  "/nav.html",
-  "/index.html",
-  "/manifest.json",
-  "/icon-144x144.png",
-  "/icon-192x192.png",
-  "/icon-256x256.png",
-  "/icon-384x384.png",
-  "/icon-512x512.png",
-  "/bg.jpg",
-  "/pages/score.html",
-  "/pages/team.html",
-  "/pages/favorit.html",
-  "/pages/about.html",
-  "/css/materialize.min.css",
-  "/css/style.css",
-  "/js/materialize.min.js",
-  "/js/nav.js",
-  "/js/api.js",
-  "/js/idb.js",
-  "/js/req.js"
-];
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js');
 
-self.addEventListener("install", function (event) {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(function (cache) {
-      return cache.addAll(urlsToCache);
-    })
+if (workbox) {
+  console.log(`Workbox berhasil dimuat`);
+  workbox.precaching.precacheAndRoute([
+    { url: "/", revision: '1' },
+    { url: "/nav.html", revision: '1' },
+    { url: "/index.html", revision: '1' },
+    { url: "/manifest.json", revision: '1' },
+    { url: "/icon-144x144.png", revision: '1' },
+    { url: "/icon-192x192.png", revision: '1' },
+    { url: "/icon-256x256.png", revision: '1' },
+    { url: "/icon-384x384.png", revision: '1' },
+    { url: "/icon-512x512.png", revision: '1' },
+    { url: "/bg.jpg", revision: '1' },
+    { url: "/pages/score.html", revision: '1' },
+    { url: "/pages/team.html", revision: '1' },
+    { url: "/pages/favorit.html", revision: '1' },
+    { url: "/pages/about.html", revision: '1' },
+    { url: "/css/materialize.min.css", revision: '1' },
+    { url: "/css/style.css", revision: '1' },
+    { url: "/js/materialize.min.js", revision: '1' },
+    { url: "/js/nav.js", revision: '1' },
+    { url: "/js/api.js", revision: '1' },
+    { url: "/js/idb.js", revision: '1' },
+    { url: "/js/req.js", revision: '1' }
+  ], {
+    ignoreUrlParametersMatching: [/.*/]
+  });
+  workbox.routing.registerRoute(
+    new RegExp('https://api.football-data.org/v2/'),
+    workbox.strategies.staleWhileRevalidate()
   );
-});
 
-self.addEventListener("activate", function (event) {
-  event.waitUntil(
-    caches.keys().then(function (cacheNames) {
-      return Promise.all(
-        cacheNames.map(function (cacheName) {
-          if (cacheName != CACHE_NAME) {
-            console.log("ServiceWorker: cache " + cacheName + " dihapus");
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
-  );
-});
+} else {
+  console.log(`Workbox gagal dimuat`);
+}
 
-self.addEventListener('fetch', function (event) {
-  event.respondWith(
-    caches.open(CACHE_NAME).then(function (cache) {
-      return cache.match(event.request).then(function (response) {
-        return response || fetch(event.request).then(function (response) {
-          cache.put(event.request, response.clone());
-          return response;
-        });
-      });
-    })
-  );
-});
+
 
 self.addEventListener('push', function (event) {
   var body;
