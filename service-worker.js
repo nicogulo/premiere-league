@@ -24,7 +24,8 @@ if (workbox) {
     { url: "/js/api.js", revision: '1' },
     { url: "/js/idb.js", revision: '1' },
     { url: "/js/req.js", revision: '1' },
-    { url: "/js/script.js", revision: '1' }
+    { url: "/js/script.js", revision: '1' },
+    { url: "/js/jquery.js", revision: '1' },
   ], {
     ignoreUrlParametersMatching: [/.*/]
   });
