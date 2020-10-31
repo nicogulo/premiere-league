@@ -23,7 +23,8 @@ if (workbox) {
     { url: "/js/nav.js", revision: '1' },
     { url: "/js/api.js", revision: '1' },
     { url: "/js/idb.js", revision: '1' },
-    { url: "/js/req.js", revision: '1' }
+    { url: "/js/req.js", revision: '1' },
+    { url: "/js/script.js", revision: '1' }
   ], {
     ignoreUrlParametersMatching: [/.*/]
   });
