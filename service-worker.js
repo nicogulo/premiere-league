@@ -6,6 +6,7 @@ if (workbox) {
     { url: "/nav.html", revision: '1' },
     { url: "/index.html", revision: '1' },
     { url: "/manifest.json", revision: '1' },
+    { url: "/icon.png", revision: '1' },
     { url: "/icon-144x144.png", revision: '1' },
     { url: "/icon-192x192.png", revision: '1' },
     { url: "/icon-256x256.png", revision: '1' },
