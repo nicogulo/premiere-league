@@ -35,6 +35,7 @@ if (workbox) {
       cacheName: "api",
     })
   );
+
 } else {
   console.log(`Workbox gagal dimuat`);
 }
