@@ -28,10 +28,11 @@ if (workbox) {
     ignoreUrlParametersMatching: [/.*/]
   });
   workbox.routing.registerRoute(
-    new RegExp('https://api.football-data.org/v2/'),
-    workbox.strategies.staleWhileRevalidate()
+    /^https:\/\/api\.football-data\.org/,
+    new workbox.strategies.StaleWhileRevalidate({
+      cacheName: "api",
+    })
   );
-
 } else {
   console.log(`Workbox gagal dimuat`);
 }
