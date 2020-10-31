@@ -1,0 +1,5 @@
+Firebase Deploy
+https://premiere-leagua.firebaseapp.com/
+
+Github Repo
+https://github.com/nicogulo/premiere-league.git
